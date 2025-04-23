@@ -1,5 +1,6 @@
 
 import { Youtube, Linkedin, Github } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -30,11 +31,11 @@ const Footer = () => {
           <div>
             <h3 className="font-medium text-white mb-4">Quick Links</h3>
             <ul className="space-y-2 text-white/70">
-              <li><a href="#" className="hover:text-white transition-colors">Home</a></li>
+              <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
               <li><a href="#" className="hover:text-white transition-colors">Featured Posts</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Categories</a></li>
               <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+              <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>
 
@@ -64,4 +65,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
