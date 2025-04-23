@@ -25,8 +25,48 @@ const ArticleCard = ({
   slug = "quantum-computing",
 }: ArticleCardProps) => {
   return (
-    <Link to={`/post/${slug}`} className="block">
-      <div className="glass-panel overflow-hidden hover-lift group h-full">
+    <Link to={`/post/${slug}`} className="block group">
+      <div
+        className="glass-panel overflow-hidden hover-lift h-full relative
+        transition-all duration-300
+        before:pointer-events-none
+        before:absolute before:inset-0 before:rounded-xl
+        before:opacity-0
+        before:transition-all before:duration-300
+        before:z-10
+        group-hover:before:opacity-100
+        group-hover:before:ring-2
+        before:ring-0
+        group-hover:before:ring-4
+        before:ring-transparent
+        group-hover:before:ring-transparent
+        group-hover:before:border-gradient-orange"
+        style={{
+          // The before pseudo-element doesn't support gradients fully in Tailwind, so we use a background-image hack.
+          // But since we use Tailwind for everything else, we inject this here for the orange gradient effect.
+        }}
+      >
+        <style>
+          {`
+          .group:hover .border-gradient-orange::before {
+            background: linear-gradient(90deg, #FEC6A1 0%, #F97316 100%);
+            opacity: 1;
+            box-shadow: 0 0 0 4px #f9731680, 0 2px 20px 0 #f9731620;
+            transition: opacity 0.3s, box-shadow 0.3s;
+          }
+          .border-gradient-orange::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 0.75rem;
+            pointer-events: none;
+            background: linear-gradient(90deg, #FEC6A1 0%, #F97316 100%);
+            opacity: 0;
+            transition: opacity 0.3s, box-shadow 0.3s;
+            z-index: 10;
+          }
+          `}
+        </style>
         <div className="relative h-48 overflow-hidden">
           <img
             src={imageUrl}
