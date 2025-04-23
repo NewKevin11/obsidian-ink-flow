@@ -1,5 +1,5 @@
 
-import { Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { Youtube, Linkedin, Github } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -14,17 +14,14 @@ const Footer = () => {
               Expert analysis for developers and tech enthusiasts.
             </p>
             <div className="flex space-x-4">
-              <a href="https://github.com" className="text-white/70 hover:text-white transition-colors">
+              <a href="https://github.com" className="text-white/70 hover:text-white transition-colors" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
                 <Github size={20} />
               </a>
-              <a href="https://twitter.com" className="text-white/70 hover:text-white transition-colors">
-                <Twitter size={20} />
+              <a href="https://www.youtube.com" className="text-white/70 hover:text-white transition-colors" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                <Youtube size={20} />
               </a>
-              <a href="https://linkedin.com" className="text-white/70 hover:text-white transition-colors">
+              <a href="https://linkedin.com" className="text-white/70 hover:text-white transition-colors" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
                 <Linkedin size={20} />
-              </a>
-              <a href="mailto:contact@obsidianinkflow.com" className="text-white/70 hover:text-white transition-colors">
-                <Mail size={20} />
               </a>
             </div>
           </div>
@@ -67,3 +64,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
