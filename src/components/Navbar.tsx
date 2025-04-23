@@ -1,7 +1,8 @@
 
 import { useState } from "react";
-import { Menu, X, Search, Moon, Sun } from "lucide-react";
+import { Menu, X, Search, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,11 +13,11 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "Technology", href: "#technology" },
-    { name: "Programming", href: "#programming" },
-    { name: "Cybersecurity", href: "#cybersecurity" },
-    { name: "AI", href: "#ai" },
-    { name: "About", href: "#about" },
+    { name: "Technology", href: "/technology" },
+    { name: "Programming", href: "/programming" },
+    { name: "Cybersecurity", href: "/cybersecurity" },
+    { name: "AI", href: "/ai" },
+    { name: "About", href: "/about" },
   ];
 
   return (
@@ -24,20 +25,21 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <span className="text-xl font-semibold text-gradient">Obsidian Ink Flow</span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className="text-sm text-white/80 hover:text-white transition-colors"
+                onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -67,13 +69,14 @@ const Navbar = () => {
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col space-y-4">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className="text-sm text-white/80 hover:text-white transition-colors py-2"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
