@@ -26,7 +26,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-xl font-semibold text-gradient">Obsidian Ink Flow</span>
+            <span className="text-xl font-semibold text-gradient">the Glitch report</span>
           </Link>
 
           {/* Desktop Navigation */}
