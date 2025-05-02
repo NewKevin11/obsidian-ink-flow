@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -80,7 +81,7 @@
   }
 
   .glass-panel {
-    @apply bg-blog-dark-2/50 backdrop-blur-lg border border-white/10 rounded-xl shadow-xl;
+    @apply bg-black/30 backdrop-blur-lg border border-white/10 rounded-xl shadow-xl;
   }
 
   .text-gradient {
@@ -88,7 +89,34 @@
   }
 
   .accent-gradient {
-    @apply bg-gradient-to-r from-blog-accent to-blog-accent-hover;
+    @apply bg-gradient-to-r from-blue-500 to-indigo-600;
+  }
+  
+  /* Define the bg-gradient-main class */
+  .bg-gradient-main {
+    @apply bg-black;
+    background-image: linear-gradient(to bottom, rgba(13, 12, 15, 1), rgba(22, 21, 30, 0.95));
+  }
+  
+  /* Define any other missing blog-related custom classes */
+  .bg-blog-dark-1 {
+    @apply bg-gray-900;
+  }
+  
+  .bg-blog-dark-2 {
+    @apply bg-gray-800;
+  }
+  
+  .bg-blog-accent {
+    @apply bg-blue-600;
+  }
+  
+  .bg-blog-accent-hover {
+    @apply bg-blue-700;
+  }
+  
+  .bg-gradient-button {
+    background-image: linear-gradient(to right, #4f46e5, #6366f1);
   }
 }
 
@@ -113,5 +141,21 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+  }
+  
+  /* Add animation for fade-in effect */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }

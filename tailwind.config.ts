@@ -53,6 +53,15 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        blog: {
+          "dark-1": "#121212",
+          "dark-2": "#1e1e1e",
+          "accent": "#4f46e5",
+          "accent-hover": "#4338ca",
+        },
+      },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
