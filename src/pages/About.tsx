@@ -40,11 +40,18 @@ const About = () => (
       <section className="mb-8">
         <h2 className="text-2xl font-semibold text-white mb-4">Get in Touch</h2>
         <p className="text-white/80 text-lg mb-6">Have a question or want to collaborate? I'd love to hear from you!</p>
-        <Link to="/contact">
-          <Button className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600">
-            Contact Me
-          </Button>
-        </Link>
+        <div className="flex flex-wrap gap-4">
+          <Link to="/contact">
+            <Button className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600">
+              Contact Me
+            </Button>
+          </Link>
+          <Link to="/admin/login">
+            <Button variant="outline" className="border-cyan-400 text-cyan-400 hover:bg-cyan-400/10">
+              Admin Login
+            </Button>
+          </Link>
+        </div>
       </section>
     </main>
     <Footer />
