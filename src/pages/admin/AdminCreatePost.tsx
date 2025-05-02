@@ -1,4 +1,3 @@
-
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabaseClient } from '@/lib/supabase';
@@ -26,6 +25,7 @@ import {
 import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
 import PostEditor from '@/components/admin/PostEditor';
+import AdminSkeleton from '@/components/admin/AdminSkeleton';
 
 const postSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100),
@@ -58,7 +58,7 @@ const AdminCreatePost = () => {
     },
   });
 
-  const { data: categories } = useQuery({
+  const { data: categories, isLoading: categoriesLoading } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
       const { data, error } = await supabaseClient
@@ -69,6 +69,14 @@ const AdminCreatePost = () => {
       return data || [];
     }
   });
+
+  if (categoriesLoading) {
+    return (
+      <div className="animate-fade-in">
+        <AdminSkeleton type="form" />
+      </div>
+    );
+  }
 
   const createPostMutation = useMutation({
     mutationFn: async (values: PostFormValues) => {
@@ -101,7 +109,7 @@ const AdminCreatePost = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div className="flex items-center">
         <Button 
           variant="ghost" 

@@ -4,8 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '@/lib/supabase';
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { FileText, Eye, Clock, BarChart } from 'lucide-react';
-import StatsCard from '@/components/admin/StatsCard';
+import StatsOverview from '@/components/admin/StatsOverview';
+import AdminSkeleton from '@/components/admin/AdminSkeleton';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Edit, Eye } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -68,50 +71,31 @@ const AdminDashboard = () => {
 
   if (isLoading) {
     return (
-      <div className="flex h-full items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-t-transparent border-cyan-500"></div>
+      <div className="animate-fade-in">
+        <AdminSkeleton type="dashboard" />
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <StatsCard 
-          title="Total Posts" 
-          value={stats.totalPosts} 
-          icon={FileText}
-          iconColor="text-cyan-400"
-          iconBgColor="bg-cyan-400/20"
-        />
-        
-        <StatsCard 
-          title="Published" 
-          value={stats.publishedPosts} 
-          icon={Eye}
-          iconColor="text-green-400"
-          iconBgColor="bg-green-400/20"
-        />
-        
-        <StatsCard 
-          title="Drafts" 
-          value={stats.draftPosts} 
-          icon={Clock}
-          iconColor="text-yellow-400"
-          iconBgColor="bg-yellow-400/20"
-        />
-        
-        <StatsCard 
-          title="Categories" 
-          value={stats.categories} 
-          icon={BarChart}
-          iconColor="text-purple-400"
-          iconBgColor="bg-purple-400/20"
-        />
-      </div>
+    <div className="space-y-8 animate-fade-in">
+      <StatsOverview 
+        totalPosts={stats.totalPosts} 
+        publishedPosts={stats.publishedPosts}
+        draftPosts={stats.draftPosts}
+        categories={stats.categories}
+      />
       
-      <div>
-        <h2 className="mb-4 text-xl font-semibold text-white">Recent Posts</h2>
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold text-white">Recent Posts</h2>
+          <Button variant="ghost" asChild>
+            <Link to="/admin/posts" className="text-gray-300 hover:text-white">
+              View All <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+        
         <Card className="bg-gray-800 border-gray-700 overflow-hidden">
           <div className="p-0">
             <table className="w-full text-left">
@@ -121,6 +105,7 @@ const AdminDashboard = () => {
                   <th className="px-6 py-3 text-sm font-medium text-gray-400">Category</th>
                   <th className="px-6 py-3 text-sm font-medium text-gray-400">Status</th>
                   <th className="px-6 py-3 text-sm font-medium text-gray-400">Date</th>
+                  <th className="px-6 py-3 text-sm font-medium text-gray-400 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-700">
@@ -140,12 +125,36 @@ const AdminDashboard = () => {
                     <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-300">
                       {new Date(post.created_at).toLocaleDateString()}
                     </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-right">
+                      <div className="flex justify-end space-x-2">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          asChild
+                          className="h-7 w-7 text-gray-400 hover:text-white hover:bg-gray-700"
+                        >
+                          <Link to={`/post/${post.id}`}>
+                            <Eye className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="icon"
+                          asChild
+                          className="h-7 w-7 text-gray-400 hover:text-white hover:bg-gray-700"
+                        >
+                          <Link to={`/admin/posts/edit/${post.id}`}>
+                            <Edit className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </div>
+                    </td>
                   </tr>
                 ))}
-                {recentPosts?.length === 0 && (
+                {(!recentPosts || recentPosts.length === 0) && (
                   <tr>
-                    <td colSpan={4} className="px-6 py-4 text-center text-sm text-gray-400">
-                      No posts found
+                    <td colSpan={5} className="px-6 py-8 text-center text-sm text-gray-400">
+                      No posts found. <Link to="/admin/posts/create" className="text-blue-400 hover:underline">Create your first post</Link>
                     </td>
                   </tr>
                 )}

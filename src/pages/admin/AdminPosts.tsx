@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -16,7 +15,7 @@ import { toast } from 'sonner';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import ConfirmationDialog from '@/components/admin/ConfirmationDialog';
-import { Skeleton } from '@/components/ui/skeleton';
+import AdminSkeleton from '@/components/admin/AdminSkeleton';
 
 type Post = {
   id: string;
@@ -88,32 +87,14 @@ const AdminPosts = () => {
 
   if (isLoading) {
     return (
-      <div className="space-y-6">
-        <div className="mb-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
-          <div>
-            <h2 className="text-2xl font-bold text-white">Blog Posts</h2>
-            <p className="text-sm text-gray-400">Manage all your blog posts</p>
-          </div>
-          <Skeleton className="h-10 w-36" />
-        </div>
-
-        <Skeleton className="h-12 w-full max-w-sm mb-6" />
-
-        <div className="rounded-md border border-gray-700 bg-gray-800">
-          <div className="p-4">
-            <div className="grid gap-4">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Skeleton key={i} className="h-16 w-full" />
-              ))}
-            </div>
-          </div>
-        </div>
+      <div className="animate-fade-in">
+        <AdminSkeleton type="posts" />
       </div>
     );
   }
 
   return (
-    <>
+    <div className="animate-fade-in">
       <div className="mb-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
         <div>
           <h2 className="text-2xl font-bold text-white">Blog Posts</h2>
@@ -226,7 +207,7 @@ const AdminPosts = () => {
         cancelText="Cancel"
         variant="destructive"
       />
-    </>
+    </div>
   );
 };
 

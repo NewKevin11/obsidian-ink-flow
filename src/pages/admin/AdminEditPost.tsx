@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -27,6 +26,7 @@ import {
 import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
 import PostEditor from '@/components/admin/PostEditor';
+import AdminSkeleton from '@/components/admin/AdminSkeleton';
 
 const postSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100),
@@ -76,7 +76,7 @@ const AdminEditPost = () => {
     },
   });
 
-  const { data: categories } = useQuery({
+  const { data: categories, isLoading: categoriesLoading } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
       const { data, error } = await supabaseClient
@@ -131,16 +131,16 @@ const AdminEditPost = () => {
     updatePostMutation.mutate(values);
   };
 
-  if (isLoading) {
+  if (isLoading || categoriesLoading) {
     return (
-      <div className="flex h-full items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-t-transparent border-cyan-500"></div>
+      <div className="animate-fade-in">
+        <AdminSkeleton type="form" />
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div className="flex items-center">
         <Button 
           variant="ghost" 
