@@ -1,5 +1,8 @@
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const About = () => (
   <>
@@ -24,7 +27,7 @@ const About = () => (
         </p>
       </section>
 
-      <section>
+      <section className="mb-16">
         <h2 className="text-2xl font-semibold text-white mb-3">What You Can Expect</h2>
         <ul className="list-disc pl-6 text-white/80 space-y-2">
           <li>In-depth tutorials on DevOps and cloud tools like AWS, Docker, and Kubernetes</li>
@@ -32,6 +35,16 @@ const About = () => (
           <li>Reflections and case studies from real-world projects</li>
           <li>Guidance on growing as a software engineer, both technically and mentally</li>
         </ul>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold text-white mb-4">Get in Touch</h2>
+        <p className="text-white/80 text-lg mb-6">Have a question or want to collaborate? I'd love to hear from you!</p>
+        <Link to="/contact">
+          <Button className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600">
+            Contact Me
+          </Button>
+        </Link>
       </section>
     </main>
     <Footer />
