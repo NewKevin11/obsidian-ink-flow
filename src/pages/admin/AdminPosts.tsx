@@ -12,19 +12,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import { toast } from 'sonner';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import ConfirmationDialog from '@/components/admin/ConfirmationDialog';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type Post = {
   id: string;
@@ -96,8 +88,26 @@ const AdminPosts = () => {
 
   if (isLoading) {
     return (
-      <div className="flex h-full items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-t-transparent border-cyan-500"></div>
+      <div className="space-y-6">
+        <div className="mb-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+          <div>
+            <h2 className="text-2xl font-bold text-white">Blog Posts</h2>
+            <p className="text-sm text-gray-400">Manage all your blog posts</p>
+          </div>
+          <Skeleton className="h-10 w-36" />
+        </div>
+
+        <Skeleton className="h-12 w-full max-w-sm mb-6" />
+
+        <div className="rounded-md border border-gray-700 bg-gray-800">
+          <div className="p-4">
+            <div className="grid gap-4">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Skeleton key={i} className="h-16 w-full" />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -206,25 +216,16 @@ const AdminPosts = () => {
         </Table>
       </div>
 
-      <AlertDialog open={!!deletePostId} onOpenChange={() => closeDeleteDialog()}>
-        <AlertDialogContent className="bg-gray-800 border-gray-700 text-white">
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription className="text-gray-400">
-              This action cannot be undone. This will permanently delete the post.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel className="bg-gray-700 text-white hover:bg-gray-600">Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleDeletePost}
-              className="bg-red-500 text-white hover:bg-red-600"
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmationDialog
+        open={!!deletePostId}
+        onOpenChange={() => closeDeleteDialog()}
+        title="Are you sure?"
+        description="This action cannot be undone. This will permanently delete the post."
+        onConfirm={handleDeletePost}
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="destructive"
+      />
     </>
   );
 };

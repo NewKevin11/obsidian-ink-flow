@@ -5,6 +5,7 @@ import { supabaseClient } from '@/lib/supabase';
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { FileText, Eye, Clock, BarChart } from 'lucide-react';
+import StatsCard from '@/components/admin/StatsCard';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -76,53 +77,37 @@ const AdminDashboard = () => {
   return (
     <div className="space-y-6">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="p-6 bg-gray-800 border-gray-700">
-          <div className="flex items-center space-x-4">
-            <div className="rounded-full bg-cyan-400/20 p-3">
-              <FileText className="h-6 w-6 text-cyan-400" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-400">Total Posts</p>
-              <h3 className="text-2xl font-bold text-white">{stats.totalPosts}</h3>
-            </div>
-          </div>
-        </Card>
+        <StatsCard 
+          title="Total Posts" 
+          value={stats.totalPosts} 
+          icon={FileText}
+          iconColor="text-cyan-400"
+          iconBgColor="bg-cyan-400/20"
+        />
         
-        <Card className="p-6 bg-gray-800 border-gray-700">
-          <div className="flex items-center space-x-4">
-            <div className="rounded-full bg-green-400/20 p-3">
-              <Eye className="h-6 w-6 text-green-400" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-400">Published</p>
-              <h3 className="text-2xl font-bold text-white">{stats.publishedPosts}</h3>
-            </div>
-          </div>
-        </Card>
+        <StatsCard 
+          title="Published" 
+          value={stats.publishedPosts} 
+          icon={Eye}
+          iconColor="text-green-400"
+          iconBgColor="bg-green-400/20"
+        />
         
-        <Card className="p-6 bg-gray-800 border-gray-700">
-          <div className="flex items-center space-x-4">
-            <div className="rounded-full bg-yellow-400/20 p-3">
-              <Clock className="h-6 w-6 text-yellow-400" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-400">Drafts</p>
-              <h3 className="text-2xl font-bold text-white">{stats.draftPosts}</h3>
-            </div>
-          </div>
-        </Card>
+        <StatsCard 
+          title="Drafts" 
+          value={stats.draftPosts} 
+          icon={Clock}
+          iconColor="text-yellow-400"
+          iconBgColor="bg-yellow-400/20"
+        />
         
-        <Card className="p-6 bg-gray-800 border-gray-700">
-          <div className="flex items-center space-x-4">
-            <div className="rounded-full bg-purple-400/20 p-3">
-              <BarChart className="h-6 w-6 text-purple-400" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-400">Categories</p>
-              <h3 className="text-2xl font-bold text-white">{stats.categories}</h3>
-            </div>
-          </div>
-        </Card>
+        <StatsCard 
+          title="Categories" 
+          value={stats.categories} 
+          icon={BarChart}
+          iconColor="text-purple-400"
+          iconBgColor="bg-purple-400/20"
+        />
       </div>
       
       <div>
